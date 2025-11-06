@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trích xuất dữ liệu Excel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <style>
+      :root {
+        --bg-color: #0c0a09;
+        --text-primary: #f2f2f2;
+        --text-secondary: #a3a3a3;
+        --text-accent: #67e8f9; /* cyan-300 */
+        --icon-primary: #a3a3a3;
+        --icon-accent: #22d3ee; /* cyan-400 */
+        
+        --glass-bg: rgba(0, 0, 0, 0.3);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --glass-btn-bg: rgba(255, 255, 255, 0.1);
+        --glass-btn-border: rgba(255, 255, 255, 0.1);
+        --glass-btn-bg-hover: rgba(255, 255, 255, 0.2);
+        --selection-bg: #67e8f9;
+        --selection-text: #164e63;
+      }
+
+      .light {
+        --bg-color: #f8fafc; /* slate-50 */
+        --text-primary: #1e293b; /* slate-800 */
+        --text-secondary: #64748b; /* slate-500 */
+        --text-accent: #0891b2; /* cyan-600 */
+        --icon-primary: #64748b;
+        --icon-accent: #0e7490; /* cyan-700 */
+
+        --glass-bg: rgba(255, 255, 255, 0.5);
+        --glass-border: rgba(0, 0, 0, 0.08);
+        --glass-btn-bg: rgba(0, 0, 0, 0.05);
+        --glass-btn-border: rgba(0, 0, 0, 0.08);
+        --glass-btn-bg-hover: rgba(0, 0, 0, 0.1);
+        --selection-bg: #0891b2;
+        --selection-text: #ffffff;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-primary);
+        transition: background-color 0.3s ease;
+        overflow: hidden;
+        position: relative;
+      }
+      .aurora-bg {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
+      }
+      .aurora-shape {
+        position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.2; animation: move 20s infinite alternate;
+      }
+      .light .aurora-shape { opacity: 0.4; filter: blur(150px); }
+      .shape1 { width: 400px; height: 400px; background-color: #0891b2; top: 10%; left: 20%; animation-duration: 25s; }
+      .shape2 { width: 300px; height: 300px; background-color: #be185d; bottom: 10%; right: 20%; animation-duration: 20s; }
+      .shape3 { width: 250px; height: 250px; background-color: #4338ca; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-duration: 30s; animation-direction: reverse; }
+
+      @keyframes move {
+        0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        100% { transform: translate(100px, 150px) rotate(30deg) scale(1.1); }
+      }
+      
+      ::selection {
+        background-color: var(--selection-bg);
+        color: var(--selection-text);
+      }
+
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: rgba(128, 128, 128, 0.1); border-radius: 10px; }
+      ::-webkit-scrollbar-thumb { background: var(--text-accent); opacity: 0.5; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: var(--text-accent); opacity: 0.8; }
+    </style>
+    <script>
+      // Apply theme from localStorage immediately to prevent FOUC
+      (function() {
+        try {
+          const theme = localStorage.getItem('theme');
+          if (theme === 'light') {
+            document.documentElement.classList.add('light');
+          }
+        } catch (e) {
+          console.error("Could not set theme from localStorage", e);
+        }
+      })();
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div class="aurora-bg">
+        <div class="aurora-shape shape1"></div>
+        <div class="aurora-shape shape2"></div>
+        <div class="aurora-shape shape3"></div>
+    </div>
+    <div id="root" class="relative z-10"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

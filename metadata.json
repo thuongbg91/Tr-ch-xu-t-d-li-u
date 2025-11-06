@@ -1,0 +1,5 @@
+{
+  "name": "Trích xuất dữ liệu Excel",
+  "description": "Một ứng dụng để tải lên tệp bảng tính và trích xuất dữ liệu có cấu trúc bằng Gemini API. Ứng dụng xác định thông tin người nhận, chi tiết đơn hàng và danh sách các mặt hàng cùng với số lượng của chúng.",
+  "requestFramePermissions": []
+}
